@@ -1,0 +1,5 @@
+CREATE TABLE `task` (
+`id` VARCHAR(256) NOT NULL,
+`title` VARCHAR(256) NOT NULL,
+`status` VARCHAR(256) NOT NULL
+)
