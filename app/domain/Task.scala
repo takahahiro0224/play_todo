@@ -7,21 +7,21 @@ case class Task(id: String, title: Title, status: TaskStatus)
 object Task {
   def apply(titleString: String,
             statusString: String): Task = {
-    val uuid = UUID.rondamUUID().toString
+    val uuid = UUID.randomUUID().toString
     new Task(
       id = uuid,
-      title = Title(tittleString),
+      title = Title(titleString),
       status = TaskStatus(statusString)
     )
   }
 
   def apply(id: String,
-            statusString: String,
-            taskString): Task = {
+            titleString: String,
+            statusString: String): Task = {
     new Task(
       id = id,
-      title = Title(titleString)
-      statusString = TaskStatus(statusString)
+      title = Title(titleString),
+      status = TaskStatus(statusString)
     )
   }
 }
