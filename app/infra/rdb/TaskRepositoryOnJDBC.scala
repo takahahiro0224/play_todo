@@ -20,6 +20,21 @@ class TaskRepositoryOnJDBC extends TaskRepository {
     }
   }
 
+  def add(task: Task): Try[Unit] = Try {
+    val record = TaskRecord(task)
+    DB localTx { implicit session =>
+      sql"""insert into task (id, title, status)
+            |values (
+            |${record.id},
+            |${record.title},
+            |${record.status}
+            |)
+         """.stripMargin
+        .update()
+        .apply()
+    }
+  }
+
   private val toModel: TaskRecord => Task = { taskRecord =>
     new Task(
       taskRecord.id,

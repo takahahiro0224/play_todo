@@ -7,4 +7,6 @@ trait TaskRepository {
 
   def findAll(): Try[Seq[Task]]
 
+  def add(task: Task): Try[Unit]
+
 }

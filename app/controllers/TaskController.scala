@@ -1,6 +1,8 @@
 package controllers
 
 import controllers.dtos.TaskDTO
+import controllers.forms.TaskCreate
+import domain.Task
 import domain.repositories.TaskRepository
 import javax.inject.{Inject, Singleton}
 import play.api.Logging
@@ -25,6 +27,28 @@ class TaskController @Inject()(cc: ControllerComponents, taskRepository: TaskRep
 
       }
     }
+  }
+
+  def createForm(): Action[AnyContent] = Action { implicit request =>
+    Ok(views.html.task.createForm(TaskCreate.form))
+  }
+
+  def create() = Action { implicit request =>
+    TaskCreate.form.bindFromRequest.fold(
+      error => BadRequest(views.html.task.createForm(error)),
+      task => {
+        (for {
+          result <- taskRepository.add(Task(task.title, task.status))
+        } yield result) match {
+          case Success(_) => Redirect("/")
+          case Failure(ex) => {
+            logger.error(s"occured error", ex)
+            InternalServerError(ex.getMessage)
+          }
+
+        }
+      }
+    )
   }
 
 

@@ -8,22 +8,22 @@
         @if(tasks.isEmpty) {
             <h5>タスクはありません</h5>
         } else {
-            @for(task <- tasks) {
-                <table class="highlight">
-                    <thead>
-                        <tr>
-                            <th>タイトル</th>
-                            <th>ステータス</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@task.title</td>
-                            <td>@task.status</td>
-                        </tr>
-                    </tbody>
-                </table>
-            }
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>タイトル</th>
+                        <th>ステータス</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for(task <- tasks) {
+                    <tr>
+                        <td>@task.title</td>
+                        <td>@task.status</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
         }
 
     </div>
